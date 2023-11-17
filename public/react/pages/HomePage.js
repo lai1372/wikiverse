@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { PagesList } from "./PagesList";
-import Nav from "./Nav";
-import { Page } from "./Page";
-import Header from "./Header";
+import { PagesList } from "../components/PagesList";
+import { Page } from "../components/Page";
 
 // import and prepend the api url to any fetch calls
 import apiURL from "../api";
 
-export const App = () => {
+export const Homepage = () => {
   const [pages, setPages] = useState([]);
   const [activeArticle, setActiveArticle] = useState(false);
   const [article, setArticle] = useState({});
@@ -28,8 +26,6 @@ export const App = () => {
 
   return (
     <>
-      <Nav />
-      <Header />
       <main>
         {!activeArticle ? (
           <>
@@ -41,7 +37,7 @@ export const App = () => {
             />
           </>
         ) : (
-          <Page article={article}/>
+          <Page article={article} />
         )}
       </main>
     </>

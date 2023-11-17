@@ -1,6 +1,8 @@
 import React from "react";
 
-export const Page = ({article}) => {
+export const Page = ({ article }) => {
+
+
   return (
     <>
       <h3>{article.title}</h3>
