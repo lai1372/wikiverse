@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PagesList } from "./PagesList";
 import Nav from "./Nav";
+import { Page } from "./Page";
+import Header from "./Header";
 
 // import and prepend the api url to any fetch calls
 import apiURL from "../api";
@@ -27,10 +29,20 @@ export const App = () => {
   return (
     <>
       <Nav />
+      <Header />
       <main>
-        <h1>WikiVerse</h1>
-        <h2>An interesting 📚</h2>
-        <PagesList setActiveArticle={setActiveArticle} setArticle={setArticle} pages={pages} />
+        {!activeArticle ? (
+          <>
+            <h2>An interesting 📚</h2>
+            <PagesList
+              setActiveArticle={setActiveArticle}
+              setArticle={setArticle}
+              pages={pages}
+            />
+          </>
+        ) : (
+          <Page article={article}/>
+        )}
       </main>
     </>
   );
