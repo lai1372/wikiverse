@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useNavigate } from "react";
 import { PagesList } from "../components/PagesList";
 import { Page } from "../components/Page";
 
 // import and prepend the api url to any fetch calls
 import apiURL from "../api";
+import { useNavigate } from "react-router-dom";
 
 export const Homepage = () => {
   const [pages, setPages] = useState([]);
   const [activeArticle, setActiveArticle] = useState(false);
   const [article, setArticle] = useState({});
+
 
   async function fetchPages() {
     try {

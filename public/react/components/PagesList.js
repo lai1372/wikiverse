@@ -1,11 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const PagesList = ({ pages, setArticle, setActiveArticle }) => {
   function handleClick(pageInfo) {
     setActiveArticle(true);
     setArticle(pageInfo);
-    console.log(pageInfo)
+    // console.log(pageInfo);
+    navigate(`${pageInfo.slug}`);
   }
+
+  const navigate = useNavigate();
 
   return (
     <>
