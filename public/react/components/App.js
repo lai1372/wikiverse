@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { PagesList } from "./PagesList";
+import Nav from "./Nav";
 
 // import and prepend the api url to any fetch calls
 import apiURL from "../api";
 
 export const App = () => {
   const [pages, setPages] = useState([]);
+  const [activeArticle, setActiveArticle] = useState(false);
+  const [article, setArticle] = useState({});
 
   async function fetchPages() {
     try {
@@ -22,10 +25,19 @@ export const App = () => {
   }, []);
 
   return (
-    <main>
-      <h1>WikiVerse</h1>
-      <h2>An interesting 📚</h2>
-      <PagesList pages={pages} />
-    </main>
+    <>
+      <Nav />
+      <main>
+        <h1>WikiVerse</h1>
+        <h2>An interesting 📚</h2>
+        <PagesList setActiveArticle={setActiveArticle} setArticle={setArticle} pages={pages} />
+      </main>
+    </>
   );
 };
+
+//add onlcick for each of the pagelist items, in the onlcick handler, set active article to true / to the article itself
+
+//add single page to bottom of app in a ternary statement - if active article is true, render the single page, if not, render all pages
+
+//create a nav bar with add pages
