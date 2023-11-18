@@ -12,13 +12,23 @@ export default function Form({ setNewArticle, setNewUser, setNewTags }) {
     console.log(e);
   }
 
+  function generateSlug(string) {
+    return string
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(title, authorName, authorEmail, tags, content);
+    // console.log(title, authorName, authorEmail, slug, tags, content);
+    console.log(generateSlug(title));
     setNewArticle({
       title: title,
       content: content,
-      slug: title,
+      slug: generateSlug(title),
       status: open,
     });
     setNewUser({
@@ -72,7 +82,7 @@ export default function Form({ setNewArticle, setNewUser, setNewTags }) {
           <input
             type="text"
             onChange={(e) => {
-              setNewTags(e.target.value);
+              setTags(e.target.value);
             }}
           />
         </label>
