@@ -6,7 +6,8 @@ export default function Form() {
   const [content, setContent] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorEmail, setAuthorEmail] = useState("");
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState("");
+  const [postSuccess, setPostSuccess] = useState(false);
 
   function slugGenerator(string) {
     return string
@@ -17,10 +18,6 @@ export default function Form() {
       .replace(/^-+|-+$/g, "");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e);
-  }
   async function postArticle() {
     const response = await fetch(`${apiURL}/wiki`, {
       method: "POST",
@@ -37,8 +34,9 @@ export default function Form() {
       }),
     });
     const data = await response.json();
-    console.log(data)
+    data ? setPostSuccess(true) : "";
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     postArticle();
@@ -46,54 +44,58 @@ export default function Form() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-        </label>
-        <label>
-          Content:
-          <input
-            type="text"
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
-        </label>
-        <label>
-          Author name:
-          <input
-            type="text"
-            onChange={(e) => {
-              setAuthorName(e.target.value);
-            }}
-          />
-        </label>
-        <label>
-          Author email:
-          <input
-            type="text"
-            onChange={(e) => {
-              setAuthorEmail(e.target.value);
-            }}
-          />
-        </label>
-        <label>
-          Tags:
-          <input
-            type="text"
-            onChange={(e) => {
-              setTags(e.target.value);
-            }}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
+      {!postSuccess ? (
+        <form onSubmit={handleSubmit}>
+          <label>
+            Title:
+            <input
+              type="text"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+          </label>
+          <label>
+            Content:
+            <input
+              type="text"
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
+            />
+          </label>
+          <label>
+            Author name:
+            <input
+              type="text"
+              onChange={(e) => {
+                setAuthorName(e.target.value);
+              }}
+            />
+          </label>
+          <label>
+            Author email:
+            <input
+              type="text"
+              onChange={(e) => {
+                setAuthorEmail(e.target.value);
+              }}
+            />
+          </label>
+          <label>
+            Tags:
+            <input
+              type="text"
+              onChange={(e) => {
+                setTags(e.target.value);
+              }}
+            />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <p>Successfully submitted</p>
+      )}
     </>
   );
 }
