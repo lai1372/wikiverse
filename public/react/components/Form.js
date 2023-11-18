@@ -1,18 +1,14 @@
 import { useState } from "react";
+import apiURL from "../api";
 
-export default function Form({ setNewArticle, setNewUser, setNewTags }) {
+export default function Form() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorEmail, setAuthorEmail] = useState("");
   const [tags, setTags] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e);
-  }
-
-  function generateSlug(string) {
+  function slugGenerator(string) {
     return string
       .toLowerCase()
       .trim()
@@ -23,19 +19,29 @@ export default function Form({ setNewArticle, setNewUser, setNewTags }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(title, authorName, authorEmail, slug, tags, content);
-    console.log(generateSlug(title));
-    setNewArticle({
-      title: title,
-      content: content,
-      slug: generateSlug(title),
-      status: open,
+    console.log(e);
+  }
+  async function postArticle() {
+    const response = await fetch(`${apiURL}/wiki`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        name: authorName,
+        email: authorEmail,
+        slug: slugGenerator(title),
+        tags: tags,
+      }),
     });
-    setNewUser({
-      name: authorName,
-      email: authorEmail,
-    });
-    setNewTags(tags);
+    const data = await response.json();
+    console.log(data)
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    postArticle();
   }
 
   return (
