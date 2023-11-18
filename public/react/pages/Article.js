@@ -1,4 +1,3 @@
-import { Page } from "../components/Page";
 import apiURL from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
