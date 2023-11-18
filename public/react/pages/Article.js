@@ -25,7 +25,11 @@ export default function Article() {
     <>
       {article.title && <h1>{article.title}</h1>}
       {article.author && <p>{article.author.name}</p>}
-      {article.createdAt && <p>{article.createdAt}</p>}
+      <br></br>
+      <p>Tag(s):</p>
+      {article.tags && article.tags.map((tag, i) => <p key={i}>{tag.name}</p>)}
+      <br></br>
+      {article.createdAt && <p>Created at: {article.createdAt}</p>}
       {article.content && <p>{article.content}</p>}
       <button onClick={handleClick}>Back to main</button>
     </>
