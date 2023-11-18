@@ -1,15 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
-  function allArticles() {}
+  const navigate = useNavigate();
 
-  function addArticle() {}
+  function allArticles() {
+    navigate("/");
+  }
+
+  function addArticle() {
+    navigate("/add-article");
+  }
 
   return (
     <nav>
       <ul>
-        <li onClick={() => allArticles}>All articles</li>
-        <li onClick={() => addArticle}> Add an article</li>
+        <li onClick={allArticles}>All articles</li>
+        <li onClick={addArticle}> Add an article</li>
       </ul>
     </nav>
   );

@@ -3,6 +3,7 @@ import MainPage from "./pages/MainPage";
 import React from "react";
 import { Homepage } from "./pages/HomePage";
 import Article from "./pages/Article";
+import AddArticle from "./pages/AddArticle";
 
 export default router = createBrowserRouter([
   {
@@ -12,12 +13,12 @@ export default router = createBrowserRouter([
       { index: true, element: <Homepage /> },
       {
         path: "add-article",
-        element: <h1>Add article page</h1>,
+        element: <AddArticle />,
       },
       {
         path: ":slug",
-        element: <Article/>
-      }
+        element: <Article />,
+      },
     ],
   },
 ]);

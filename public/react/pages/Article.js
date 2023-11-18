@@ -6,29 +6,27 @@ import { useEffect, useState } from "react";
 export default function Article() {
   const [article, setArticle] = useState({});
   const { slug } = useParams();
-  //   console.log(slug);
   const navigate = useNavigate();
 
   async function getArticle() {
     const response = await fetch(`${apiURL}/wiki/${slug}`);
     const data = await response.json();
-    console.log(data);
     setArticle(data);
-    return data;
-  }
-
-  function handleClick() {
-    navigate("/");
   }
 
   useEffect(() => {
     getArticle();
   }, []);
 
+  function handleClick() {
+    navigate("/");
+  }
   return (
     <>
-      <h1>{article?.title}</h1>
-      <p>{article?.content}</p>
+      {article.title && <h1>{article.title}</h1>}
+      {article.author && <p>{article.author.name}</p>}
+      {article.createdAt && <p>{article.createdAt}</p>}
+      {article.content && <p>{article.content}</p>}
       <button onClick={handleClick}>Back to main</button>
     </>
   );
