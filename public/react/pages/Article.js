@@ -8,6 +8,16 @@ export default function Article() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
+  const formatDate = new Date(article.createdAt);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
+  };
   async function getArticle() {
     const response = await fetch(`${apiURL}/wiki/${slug}`);
     const data = await response.json();
@@ -29,7 +39,9 @@ export default function Article() {
       <p>Tag(s):</p>
       {article.tags && article.tags.map((tag, i) => <p key={i}>{tag.name}</p>)}
       <br></br>
-      {article.createdAt && <p>Created at: {article.createdAt}</p>}
+      {article.createdAt && (
+        <p>Created at: {formatDate.toLocaleDateString(undefined, options)}</p>
+      )}
       {article.content && <p>{article.content}</p>}
       <button onClick={handleClick}>Back to main</button>
     </>
